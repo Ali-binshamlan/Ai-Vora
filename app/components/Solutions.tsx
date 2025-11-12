@@ -4,6 +4,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "../context/DarkModeeContext";
+import { Variants } from "framer-motion";
 
 const services = [
   {
@@ -49,17 +50,17 @@ export default function Solutions() {
     }
   }, [dark]);
 
- const cardVariants = {
+ const cardVariants: Variants = {
    offscreenLeft: { opacity: 0, x: -80 },
    offscreenRight: { opacity: 0, x: 80 },
    onscreen: {
      opacity: 1,
      x: 0,
-     transition: { duration: 0.45, ease: "easeOut" },
+     transition: { duration: 0.45, ease: "easeOut" as const },
    },
    hover: {
      scale: 1.03,
-     transition: { duration: 0.25, ease: "easeOut" },
+     transition: { duration: 0.25, ease: "easeOut" as const },
    },
  };
 

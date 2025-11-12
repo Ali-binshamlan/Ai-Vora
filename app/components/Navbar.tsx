@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+  import { cubicBezier } from "framer-motion";
 
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -44,25 +45,27 @@ export default function NavBar() {
     { name: "Contact", href: "#contact", icon: Phone },
   ];
 
-  // تأثير سحب للأسفل لقائمة الجوال
+
   const mobileMenuVariants = {
     closed: {
       opacity: 0,
-      y: "-100%",
+      y: -50,
       transition: {
-        duration: 0.4,
-        ease: "easeInOut",
+        duration: 0.3,
+        ease: cubicBezier(0.42, 0, 0.58, 1),
       },
     },
     open: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94], // easeOutQuad
+        duration: 0.3,
+        ease: cubicBezier(0.42, 0, 0.58, 1),
       },
     },
   };
+
+
 
   // تأثير للخلفية الخلفية
   const backdropVariants = {
@@ -81,12 +84,14 @@ export default function NavBar() {
   };
 
   // تأثير للعناصر الفردية في القائمة
+
   const itemVariants = {
     closed: {
       opacity: 0,
       x: -20,
       transition: {
-        duration: 0.2,
+        duration: 0.3,
+        ease: cubicBezier(0.42, 0, 0.58, 1),
       },
     },
     open: {
@@ -94,10 +99,11 @@ export default function NavBar() {
       x: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
+        ease: cubicBezier(0.42, 0, 0.58, 1),
       },
     },
   };
+
 
   // تأثير للعناصر مع تأخير متدرج
   const staggerContainer = {

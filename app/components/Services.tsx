@@ -2,6 +2,8 @@
 
 import { useState, useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Variants, easeInOut } from "framer-motion";
+
 import {
   Brain,
   BarChart3,
@@ -9,9 +11,7 @@ import {
   TrendingUp,
   Sparkles,
   ArrowRight,
-  Globe,
-  Shield,
-  Cpu,
+ 
   Rocket,
 } from "lucide-react";
 import { DarkModeContext } from "../context/DarkModeeContext";
@@ -114,33 +114,29 @@ export default function Services() {
     },
   };
 
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 80,
-      scale: 0.8,
-    },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
+        duration: 0.5,
+        ease: "easeInOut", // بدل المصفوفة
       },
     },
   };
 
-  const floatingVariants = {
-    float: {
-      y: [0, -20, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
+ const floatingVariants: Variants = {
+   float: {
+     y: [0, -20, 0],
+     transition: {
+       duration: 3,
+       repeat: Infinity,
+       ease: easeInOut, // ✅ استخدم دالة جاهزة من Framer Motion
+     },
+   },
+ };
 
   return (
     <section

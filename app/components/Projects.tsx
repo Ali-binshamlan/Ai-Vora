@@ -380,10 +380,13 @@ const glowAnimation = keyframes`
   50% { opacity: 0.8; transform: scale(1.05); }
 `;
 
-// Styled Components
-const Wrapper = styled.div`
-  background: ${(props) =>
-    props.$isDark
+interface WrapperProps {
+  $isDark: boolean;
+}
+
+const Wrapper = styled.div<WrapperProps>`
+  background: ${({ $isDark }) =>
+    $isDark
       ? "linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%)"
       : "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%)"};
   min-height: 100vh;
@@ -392,6 +395,7 @@ const Wrapper = styled.div`
   overflow: hidden;
   font-family: "Inter", sans-serif;
   transition: background 0.5s ease;
+
 
   .background-animation {
     position: absolute;
@@ -625,7 +629,22 @@ const Wrapper = styled.div`
   }
 `;
 
-const FeatureCard = styled(motion.div)`
+interface FeatureCardProps {
+  $index: number;
+  $activeLayer: number;
+  $gradient: string;
+  $color: string;
+  $zIndex: number;
+  $scale: number;
+  $opacity: number;
+  $xOffset: number;
+  $rotation: number;
+  $isDark: boolean;
+  $isMobile: boolean;
+}
+
+
+const FeatureCard = styled(motion.div)<FeatureCardProps>`
   position: absolute;
   width: 280px;
   background: ${(props) =>
@@ -642,10 +661,11 @@ const FeatureCard = styled(motion.div)`
   border: 1px solid
     ${(props) =>
       props.$isDark ? "rgba(255, 255, 255, 0.25)" : "rgba(0, 0, 0, 0.1)"};
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: ${(props) => props.$zIndex};
   transform: translateX(${(props) => props.$xOffset}px)
     scale(${(props) => props.$scale}) rotateY(${(props) => props.$rotation}deg);
+  opacity: ${(props) => props.$opacity};
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   @media (min-width: 768px) {
     width: 420px;
@@ -653,7 +673,7 @@ const FeatureCard = styled(motion.div)`
     min-height: 350px;
     border-radius: 30px;
   }
-
+  
   .animated-border {
     position: absolute;
     top: -2px;
