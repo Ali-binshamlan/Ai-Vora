@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "./components/Navbar";
 import { DarkModeProvider } from "./context/DarkModeeContext";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -16,6 +17,7 @@ const geistMono = Geist_Mono({
 interface RootLayoutProps {
   children: React.ReactNode;
 }
+
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (

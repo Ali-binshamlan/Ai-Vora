@@ -22,7 +22,7 @@ export const DarkModeProvider: FC<Props> = ({ children }) => {
       const saved = localStorage.getItem("darkMode");
       return saved ? JSON.parse(saved) : false;
     }
-    return false;
+    return true;
   });
 
   useLayoutEffect(() => {
