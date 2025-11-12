@@ -57,7 +57,7 @@ export default function Services() {
       icon: BarChart3,
       title: "Data Insights",
       description:
-        "Turn complex data into clear, actionable insights for smarter decision-making with advanced analytics.",
+        "Turn complex data intormation clear, actionable insights for smarter decision-making with advanced analytics.",
       features: [
         "Data Visualization",
         "Real-time Analytics",
@@ -73,7 +73,7 @@ export default function Services() {
       icon: Zap,
       title: "Automation Tools",
       description:
-        "Reduce manual tasks and increase efficiency with cutting-edge AI-powered automation tools.",
+        "Reduce manual tasks and more and increase efficiency with cutting-edge AI-powered automation tools .",
       features: [
         "Workflow Automation",
         "Process Optimization",
@@ -89,7 +89,7 @@ export default function Services() {
       icon: TrendingUp,
       title: "Smart Analytics",
       description:
-        "Gain a deep understanding of your business trends and opportunities with intelligent analytics.",
+        "Gain a deep understanding of your business and trends and opportunities with more and  intelligent analytics.",
       features: [
         "Business Intelligence",
         "Performance Metrics",

@@ -30,11 +30,28 @@ export default function NavBar() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeLink, setActiveLink] = useState<string>("/");
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+ useEffect(() => {
+   let lastScrollY = 0;
+   const threshold = 40; // الحد الأدنى للحركة قبل التغيير
+
+   const handleScroll = () => {
+     const currentScrollY = window.scrollY;
+
+     if (currentScrollY - lastScrollY > threshold) {
+       // التمرير للأسفل
+       setIsScrolled(true);
+     } else if (lastScrollY - currentScrollY > threshold) {
+       // التمرير للأعلى
+       setIsScrolled(false);
+     }
+
+     lastScrollY = currentScrollY;
+   };
+
+   window.addEventListener("scroll", handleScroll, { passive: true });
+   return () => window.removeEventListener("scroll", handleScroll);
+ }, []);
+
 
   const navLinks: NavLink[] = [
     { name: "Home", href: "/", icon: Home },
@@ -127,11 +144,11 @@ export default function NavBar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 w-full flex justify-center items-center z-50 transition-all duration-500 ${
-        isScrolled ? "py-2" : "py-4"
+        isScrolled ? "py-2" : "py-2"
       }`}
     >
       {/* Mobile Header - ثابت في الأعلى */}
-      <div className="md:hidden fixed top-0 mt-4 left-1/2 -translate-x-1/2 w-[90%] bg-black border-b border-[#00C2A8]/30 backdrop-blur-md z-50 py-1 px-7 rounded-2xl">
+      <div className="md:hidden fixed top-0 mt-2 left-1/2 -translate-x-1/2 w-[90%] bg-black border-b border-[#00C2A8]/30 backdrop-blur-md z-50 py-1 px-7 rounded-2xl">
         <div className="flex items-center justify-between w-full">
           {/* Brand/Logo */}
           <motion.div
@@ -186,8 +203,8 @@ export default function NavBar() {
         <div
           className={`relative flex items-center px-8 border bg-black rounded-2xl backdrop-blur-md transition-all duration-500 ${
             isScrolled
-              ? " border-[#00C2A8]/30 py-3 max-w-[350px] scale-95 justify-center shadow-2xl shadow-[#00C2A8]/10"
-              : " border-[#00C2A8]/40 py-4  scale-100 justify-between shadow-xl shadow-[#00C2A8]/5"
+              ? " border-[#00C2A8]/30 py-1 w-[500px] scale-95 justify-center shadow-2xl shadow-[#00C2A8]/10"
+              : " border-[#00C2A8]/40 py-2.5  scale-100 justify-between shadow-xl shadow-[#00C2A8]/5"
           }`}
         >
           {/* Desktop Navigation Links */}
@@ -319,34 +336,51 @@ export default function NavBar() {
           {/* Scrolled State - Compact */}
           {isScrolled && (
             <motion.div
-              className="flex items-center justify-between gap-8 px-2 "
+              className="flex items-center justify-between gap-8 px-1 w-full "
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <motion.button
-                className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-5 py-2 font-semibold text-white shadow-lg transition-all duration-300 text-sm group"
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 8px 25px rgba(0, 194, 168, 0.3)",
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="relative z-10">Register</span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.6 }}
-                />
-              </motion.button>
-
               <motion.div
-                whileHover={{ scale: 1.1 }}
+                className="flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <SwitchMode />
+                <Image
+                  src="/Images/Logo_aivora.png"
+                  alt="Logo"
+                  width={35}
+                  height={35}
+                  style={{ objectFit: "cover" }}
+                  className="w-auto h-full scale-90 sm:scale-100"
+                  priority
+                />
               </motion.div>
+              <div className="flex justify-between gap-5 items-center">
+                <motion.button
+                  className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-5 py-2 font-semibold text-white shadow-lg transition-all duration-300 text-sm group"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 8px 25px rgba(0, 194, 168, 0.3)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="relative z-10">Register</span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.6 }}
+                  />
+                </motion.button>
+
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <SwitchMode />
+                </motion.div>
+              </div>
             </motion.div>
           )}
         </div>

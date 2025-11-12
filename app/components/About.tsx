@@ -28,7 +28,10 @@ export default function About() {
         {/* Text Section - Full width on mobile, 60% on desktop */}
         <div className="w-full md:flex-[60%] text-center md:text-left px-4 md:pl-8 lg:pl-20 order-2 md:order-1">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 ">
-            About Aivora
+            About{" "}
+            <span className="font-bold  bg-gradient-to-r from-[#00C2A8] to-[#2f93ac] bg-clip-text text-transparent">
+              Aivora
+            </span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl leading-relaxed md:leading-loose  max-w-2xl mx-auto md:mx-0">
             Aivora leverages cutting-edge AI technology to simplify complex
