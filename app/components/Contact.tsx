@@ -278,7 +278,7 @@ const socialIcons = {
                         dark ? "text-gray-300" : "text-gray-700"
                       }`}
                     >
-                      {socialIcons[social]}
+                      {socialIcons[social as keyof typeof socialIcons]}
                     </motion.span>
                   </motion.div>
                 ))}
