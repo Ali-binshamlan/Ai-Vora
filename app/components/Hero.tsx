@@ -65,9 +65,9 @@ export default function Hero() {
       </div>
 
       {/* القسم النصي مع الأنيميشنات */}
-      <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-10 mt-8 sm:mt-12 md:mt-16 font-semibold text-sm sm:text-base md:text-lg lg:text-xl">
+      <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-10  font-semibold text-xl sm:text-xl md:text-xl lg:text-xl">
         {/* الأنيميشن الأول */}
-        <div className="order-1 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+        <div className="order-1 w-48 h-48">
           <DotLottieReact
             src="/animations/Ai_Report_card.lottie"
             loop
@@ -92,14 +92,14 @@ export default function Hero() {
         </div>
 
         {/* الأنيميشن الثاني */}
-        <div className="order-2 sm:order-3 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+        <div className="order-2 w-48 h-48">
           <DotLottieReact src="/animations/AI_Robot.lottie" loop autoplay />
         </div>
       </div>
 
       {/* الأنيميشن الرئيسي في الأسفل */}
-      <div className="w-full max-w-4xl mx-auto mt-8 sm:mt-12 md:mt-16 lg:mt-20 px-4">
-        <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96">
+      <div className="w-full max-w-4xl mx-auto mt-4  px-4">
+        <div className="w-full h-48 sm:h-64 md:h-80 lg:h-3/4">
           <DotLottieReact src="/animations/Software.lottie" loop autoplay />
         </div>
       </div>

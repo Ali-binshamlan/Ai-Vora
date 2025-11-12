@@ -250,7 +250,7 @@ export default function Services() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <h2 className="text-6xl md:text-8xl font-black  relative">
+              <h2 className="text-4xl md:text-6xl font-black  relative">
                 Our Services
               </h2>
               {/* Animated underline */}
@@ -266,12 +266,12 @@ export default function Services() {
 
           <motion.p
             variants={itemVariants}
-            className={`text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto font-medium ${
+            className={`text-lg md:text-2xl leading-relaxed max-w-4xl mx-auto font-medium ${
               isDark ? "text-gray-300" : "text-gray-700"
             }`}
           >
             At{" "}
-            <span className="font-bold bg-gradient-to-r from-[#00C2A8] to-[#2f93ac] bg-clip-text text-transparent">
+            <span className="font-bold  bg-gradient-to-r from-[#00C2A8] to-[#2f93ac] bg-clip-text text-transparent">
               Aivora
             </span>
             , we provide AI-powered solutions designed to streamline operations,

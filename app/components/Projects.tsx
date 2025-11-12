@@ -7,7 +7,6 @@ import { useState, useRef, useContext, useEffect } from "react";
 import { DarkModeContext } from "../context/DarkModeeContext";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-
 const features = [
   {
     title: "AI Workflow Automation System",
@@ -15,7 +14,6 @@ const features = [
       "Developed an intelligent automation system that uses computer vision and NLP to streamline document processing and customer support workflows — reducing manual work by 90%.",
     techStack: ["Python", "TensorFlow", "FastAPI", "React"],
     icon: "/animations/Robot.lottie",
-
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
     lightGradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
     stats: "90% faster",
@@ -25,6 +23,7 @@ const features = [
     title: "Data Intelligence Platform",
     description:
       "Built a machine learning platform that analyzes structured and unstructured data to deliver real-time insights and predictive analytics for business decisions.",
+    icon: "/animations/Dashboard_Tracking.lottie",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     lightGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     stats: "85% accuracy",
@@ -62,7 +61,7 @@ const features = [
   },
 ];
 
-const ModernShowcase = () => {
+const ProjectCarousel = () => {
   const { dark } = useContext(DarkModeContext);
   const [isDark, setIsDark] = useState(true);
   const [activeLayer, setActiveLayer] = useState(2);
@@ -79,8 +78,16 @@ const ModernShowcase = () => {
     }
   }, [dark]);
 
+  const nextSlide = () => {
+    setActiveLayer((prev) => (prev + 1) % features.length);
+  };
+
+  const prevSlide = () => {
+    setActiveLayer((prev) => (prev - 1 + features.length) % features.length);
+  };
+
   return (
-    <Wrapper $isDark={isDark} ref={containerRef}>
+    <Wrapper $isDark={isDark} $activeLayer={activeLayer} ref={containerRef}>
       {/* Animated Background */}
       <div className="background-animation">
         <div className="floating-shape shape-1"></div>
@@ -95,9 +102,7 @@ const ModernShowcase = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="main-title">
-          Our Projects
-        </h1>
+        <h1 className="main-title">Our Projects</h1>
         <p className="subtitle">
           Discover how our cutting-edge technology can transform your business
           with intelligent automation and data-driven insights
@@ -326,48 +331,82 @@ const ModernShowcase = () => {
             );
           })}
         </div>
+
+        {/* Navigation Arrows */}
+        {!isMobile && (
+          <div className="navigation-arrows">
+            <motion.button
+              className="nav-arrow prev"
+              onClick={prevSlide}
+              whileHover={{ scale: 1.1, x: -5 }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.button>
+
+            <motion.button
+              className="nav-arrow next"
+              onClick={nextSlide}
+              whileHover={{ scale: 1.1, x: 5 }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 18L15 12L9 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.button>
+          </div>
+        )}
       </div>
 
-      {/* Navigation */}
-      <div className="navigation-section">
-        {/* Navigation Controls */}
-        <div className="nav-controls">
-          <div className="nav-dots">
-            {features.map((feature, index) => (
-              <motion.button
-                key={index}
-                className={`dot ${index === activeLayer ? "active" : ""}`}
-                onClick={() => setActiveLayer(index)}
-                whileHover={{ scale: isMobile ? 1.1 : 1.3 }}
-                whileTap={{ scale: 0.8 }}
-                animate={{
-                  background:
-                    index === activeLayer
-                      ? isDark
-                        ? feature.gradient
-                        : feature.lightGradient
-                      : isDark
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "rgba(0, 0, 0, 0.1)",
-                  borderColor:
-                    index === activeLayer
-                      ? feature.color
-                      : isDark
-                      ? "rgba(255, 255, 255, 0.3)"
-                      : "rgba(0, 0, 0, 0.3)",
-                }}
-              >
-                {index + 1}
-              </motion.button>
-            ))}
-          </div>
+      {/* Mobile Navigation Dots */}
+      {isMobile && (
+        <div className="mobile-dots">
+          {features.map((_, index) => (
+            <motion.button
+              key={index}
+              className={`dot ${index === activeLayer ? "active" : ""}`}
+              onClick={() => setActiveLayer(index)}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+              animate={{
+                background:
+                  index === activeLayer
+                    ? isDark
+                      ? features[activeLayer].gradient
+                      : features[activeLayer].lightGradient
+                    : isDark
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "rgba(0, 0, 0, 0.2)",
+              }}
+            />
+          ))}
         </div>
-      </div>
+      )}
     </Wrapper>
   );
 };
 
-export default ModernShowcase;
+export default ProjectCarousel;
 
 // Animations
 const floatAnimation = keyframes`
@@ -380,9 +419,16 @@ const glowAnimation = keyframes`
   50% { opacity: 0.8; transform: scale(1.05); }
 `;
 
+const pulseAnimation = keyframes`
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+`;
+
 interface WrapperProps {
   $isDark: boolean;
+  $activeLayer: number;
 }
+
 
 const Wrapper = styled.div<WrapperProps>`
   background: ${({ $isDark }) =>
@@ -395,7 +441,6 @@ const Wrapper = styled.div<WrapperProps>`
   overflow: hidden;
   font-family: "Inter", sans-serif;
   transition: background 0.5s ease;
-
 
   .background-animation {
     position: absolute;
@@ -535,7 +580,9 @@ const Wrapper = styled.div<WrapperProps>`
       width: 300px;
       height: 280px;
       background: ${(props) =>
-        props.$isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)"};
+        props.$isDark
+          ? "rgba(255, 255, 255, 0.02)" // كانت 0.03
+          : "rgba(0, 0, 0, 0.02)"}; // كانت 0.03
       border-radius: 25px;
       border: 1px solid
         ${(props) =>
@@ -568,62 +615,91 @@ const Wrapper = styled.div<WrapperProps>`
     align-items: center;
   }
 
-  .navigation-section {
+  /* Navigation Arrows */
+  .navigation-arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 30;
+    pointer-events: none;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    .nav-arrow {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: all;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+      color: ${(props) => (props.$isDark ? "white" : "#1a202c")};
+      background: ${(props) =>
+        props.$isDark
+          ? "rgba(255, 255, 255, 0.1)"
+          : "rgba(255, 255, 255, 0.8)"};
+      border: 1px solid
+        ${(props) =>
+          props.$isDark ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)"};
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: ${(props) =>
+          props.$isDark
+            ? "rgba(255, 255, 255, 0.2)"
+            : "rgba(255, 255, 255, 0.95)"};
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        color: ${(props) =>
+          props.$isDark ? features[props.$activeLayer].color : "#1a202c"};
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  /* Mobile Dots */
+  .mobile-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
     margin-top: 2rem;
     position: relative;
     z-index: 20;
 
-    @media (min-width: 768px) {
-      margin-top: 3rem;
+    @media (min-width: 769px) {
+      display: none;
     }
 
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
 
-      @media (min-width: 768px) {
-        gap: 2rem;
-      }
-
-      .nav-dots {
-        display: flex;
-        gap: 0.5rem;
-
-        @media (min-width: 768px) {
-          gap: 1rem;
-        }
-
-        .dot {
-          width: 35px;
-          height: 35px;
-          border-radius: 50%;
-          border: 2px solid;
-          color: ${(props) => (props.$isDark ? "white" : "#1a202c")};
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          backdrop-filter: blur(10px);
-          transition: all 0.3s ease;
-          font-size: 0.8rem;
-
-          @media (min-width: 768px) {
-            width: 45px;
-            height: 45px;
-            font-size: 1rem;
-          }
-
-          &.active {
-            box-shadow: 0 0 25px
-              ${(props) =>
-                props.$isDark
-                  ? "rgba(255, 255, 255, 0.4)"
-                  : "rgba(0, 0, 0, 0.4)"};
-          }
-        }
+      &.active {
+        transform: scale(1.3);
+        box-shadow: 0 0 15px
+          ${(props) =>
+            props.$isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"};
+        animation: ${pulseAnimation} 2s ease-in-out infinite;
       }
     }
   }
@@ -642,7 +718,6 @@ interface FeatureCardProps {
   $isDark: boolean;
   $isMobile: boolean;
 }
-
 
 const FeatureCard = styled(motion.div)<FeatureCardProps>`
   position: absolute;
@@ -673,7 +748,7 @@ const FeatureCard = styled(motion.div)<FeatureCardProps>`
     min-height: 350px;
     border-radius: 30px;
   }
-  
+
   .animated-border {
     position: absolute;
     top: -2px;

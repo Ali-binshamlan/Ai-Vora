@@ -50,20 +50,45 @@ export default function Solutions() {
     }
   }, [dark]);
 
- const cardVariants: Variants = {
-   offscreenLeft: { opacity: 0, x: -80 },
-   offscreenRight: { opacity: 0, x: 80 },
-   onscreen: {
-     opacity: 1,
-     x: 0,
-     transition: { duration: 0.45, ease: "easeOut" as const },
-   },
-   hover: {
-     scale: 1.03,
-     transition: { duration: 0.25, ease: "easeOut" as const },
-   },
- };
+  // New improved animation variants
+  const cardVariants: Variants = {
+    offscreen: {
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+    },
+    onscreen: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        duration: 0.8,
+        bounce: 0.3,
+      },
+    },
+    hover: {
+      scale: 1.03,
+      y: -8,
+      transition: {
+        type: "spring",
+        duration: 0.4,
+        bounce: 0.6,
+      },
+    },
+  };
 
+  // Container variant for stagger effect
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
   return (
     <section
@@ -110,7 +135,7 @@ export default function Solutions() {
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6  "
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6"
         >
           Our Solutions
         </motion.h2>
@@ -127,15 +152,20 @@ export default function Solutions() {
         </motion.p>
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 w-full max-w-7xl mx-auto">
+      {/* Cards Container with Stagger Animation */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 w-full max-w-7xl mx-auto"
+      >
         {services.map((service, index) => (
           <motion.div
             key={index}
-            initial={index % 2 === 0 ? "offscreenLeft" : "offscreenRight"}
-            whileInView="onscreen"
-            whileHover="hover"
-            viewport={{ once: true, amount: 0.2 }}
             variants={cardVariants}
+            whileHover="hover"
+            viewport={{ once: true, amount: 0.3 }}
             className={`group relative overflow-hidden rounded-2xl md:rounded-3xl cursor-pointer ${
               cardMargins[index]
             } h-[300px] sm:h-[350px] md:h-[380px] lg:h-[410px] w-full max-w-full md:max-w-[500px] mx-auto shadow-lg md:shadow-xl ${
@@ -163,8 +193,12 @@ export default function Solutions() {
             {/* Card Content */}
             <div className="relative h-full flex flex-col p-4 sm:p-6 md:p-8">
               {/* Animation Container */}
-              <div className="flex-1 flex items-center justify-center mb-3 sm:mb-4 md:mb-6">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+              <motion.div
+                className="flex-1 flex items-center justify-center mb-3 sm:mb-4 md:mb-6"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="w-40 h-40 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56">
                   <DotLottieReact
                     src={service.animation}
                     loop
@@ -172,7 +206,7 @@ export default function Solutions() {
                     style={{ width: "100%", height: "100%" }}
                   />
                 </div>
-              </div>
+              </motion.div>
 
               {/* Text Content */}
               <div className="text-center space-y-2 sm:space-y-3 md:space-y-4">
@@ -259,7 +293,7 @@ export default function Solutions() {
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Bottom CTA */}
       <motion.div

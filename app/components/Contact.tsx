@@ -110,7 +110,6 @@ const socialIcons = {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x"
             whileHover={{
               scale: isMobile ? 1.02 : 1.05,
-              background: "linear-gradient(45deg, #c084fc, #60a5fa, #c084fc)",
               backgroundSize: "200% 200%",
             }}
             transition={{ duration: 0.3 }}
