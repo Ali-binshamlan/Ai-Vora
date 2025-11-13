@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-  import { cubicBezier } from "framer-motion";
+import { cubicBezier } from "framer-motion";
 
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -296,32 +296,34 @@ export default function NavBar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <motion.button
-                  className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 group"
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 10px 30px rgba(0, 194, 168, 0.4)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Register
-                    <motion.span
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </span>
+                <Link href="/Login">
+                  <motion.button
+                    className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-6 py-2 font-semibold text-white shadow-lg transition-all duration-300 group"
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 10px 30px rgba(0, 194, 168, 0.4)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Login
+                      <motion.span
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        →
+                      </motion.span>
+                    </span>
 
-                  {/* Shine effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.8 }}
-                  />
-                </motion.button>
+                    {/* Shine effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.8 }}
+                    />
+                  </motion.button>
+                </Link>
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
@@ -357,7 +359,7 @@ export default function NavBar() {
                 />
               </motion.div>
               <div className="flex justify-between gap-5 items-center">
-                <motion.button
+                <Link href="Login"> <motion.button
                   className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-5 py-2 font-semibold text-white shadow-lg transition-all duration-300 text-sm group"
                   whileHover={{
                     scale: 1.05,
@@ -365,7 +367,7 @@ export default function NavBar() {
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="relative z-10">Register</span>
+                  <span className="relative z-10">Login</span>
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
                     initial={{ x: "-100%" }}
@@ -373,6 +375,8 @@ export default function NavBar() {
                     transition={{ duration: 0.6 }}
                   />
                 </motion.button>
+                </Link>
+               
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
@@ -482,13 +486,15 @@ export default function NavBar() {
                   className="p-4 border-t border-[#00C2A8]/20"
                   variants={itemVariants}
                 >
-                  <motion.button
-                    className="w-full bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] text-white py-3 rounded-xl font-semibold shadow-lg text-sm"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Register
-                  </motion.button>
+                  <Link href="/Login">
+                    <motion.button
+                      className="w-full bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] text-white py-3 rounded-xl font-semibold shadow-lg text-sm"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Login
+                    </motion.button>
+                  </Link>
                 </motion.div>
               </div>
             </motion.div>

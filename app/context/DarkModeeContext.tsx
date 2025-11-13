@@ -20,7 +20,7 @@ export const DarkModeProvider: FC<Props> = ({ children }) => {
   const [dark, setDark] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("darkMode");
-      return saved ? JSON.parse(saved) : false;
+      return saved ? JSON.parse(saved) : true;
     }
     return true;
   });

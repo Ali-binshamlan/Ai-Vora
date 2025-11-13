@@ -1,5 +1,6 @@
 import AboutUs from "./components/About";
 import Contact from "./components/Contact";
+import FAQSection from "./components/FAQSection";
 import Hero from "./components/Hero";
 import ProjectCarousel from "./components/Projects";
 import Services from "./components/Services";
@@ -22,6 +23,9 @@ export default function Home() {
       </div>
       <div>
         <ProjectCarousel />
+      </div>
+      <div>
+        <FAQSection />
       </div>
       <div>
         <Contact />
