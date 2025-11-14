@@ -66,6 +66,7 @@ export default function About() {
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 md:hidden">
         <div className="w-6 h-1 bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] rounded-full"></div>
       </div>
+      
     </section>
   );
 }

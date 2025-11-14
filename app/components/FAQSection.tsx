@@ -38,7 +38,7 @@ export default function FAQSection() {
   return (
     <section
       id="faq"
-      className="py-20 px-6 md:px-16 bg-gradient-to-b from-black via-gray-900 to-black text-white"
+      className="py-20 px-6 md:px-16"
     >
       <div className="max-w-4xl mx-auto">
         <motion.h2
@@ -84,7 +84,7 @@ export default function FAQSection() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="px-6 pb-4 text-gray-300 leading-relaxed"
+                    className="px-6 pb-4 text-gray-500 leading-relaxed"
                   >
                     {faq.answer}
                   </motion.div>

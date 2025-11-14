@@ -55,11 +55,11 @@ export default function NavBar() {
 
   const navLinks: NavLink[] = [
     { name: "Home", href: "/", icon: Home },
-    { name: "About", href: "#about", icon: User },
-    { name: "Services", href: "#services", icon: Briefcase },
-    { name: "Solutions", href: "#solutions", icon: Cog },
-    { name: "Projects", href: "#projects", icon: Folder },
-    { name: "Contact", href: "#contact", icon: Phone },
+    { name: "About", href: "about", icon: User },
+    { name: "Services", href: "services", icon: Briefcase },
+    { name: "Solutions", href: "solutions", icon: Cog },
+    { name: "Projects", href: "projects", icon: Folder },
+    { name: "Contact", href: "contact", icon: Phone },
   ];
 
 
@@ -151,21 +151,23 @@ export default function NavBar() {
       <div className="md:hidden fixed top-0 mt-2 left-1/2 -translate-x-1/2 w-[90%] bg-black border-b border-[#00C2A8]/30 backdrop-blur-md z-50 py-1 px-7 rounded-2xl">
         <div className="flex items-center justify-between w-full">
           {/* Brand/Logo */}
-          <motion.div
-            className="flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            <Image
-              src="/Images/Logo_aivora.png"
-              alt="Logo"
-              width={35}
-              height={35}
-              style={{ objectFit: "cover" }}
-              className="w-auto h-full scale-90 sm:scale-100"
-              priority
-            />
-          </motion.div>
+          <Link href="/">
+            <motion.div
+              className="flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <Image
+                src="/Images/Logo_aivora.png"
+                alt="Logo"
+                width={35}
+                height={35}
+                style={{ objectFit: "cover" }}
+                className="w-auto h-full scale-90 sm:scale-100"
+                priority
+              />
+            </motion.div>
+          </Link>
 
           {/* Actions */}
           <div className="flex items-center gap-3">
@@ -343,40 +345,44 @@ export default function NavBar() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <motion.div
-                className="flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <Image
-                  src="/Images/Logo_aivora.png"
-                  alt="Logo"
-                  width={35}
-                  height={35}
-                  style={{ objectFit: "cover" }}
-                  className="w-auto h-full scale-90 sm:scale-100"
-                  priority
-                />
-              </motion.div>
-              <div className="flex justify-between gap-5 items-center">
-                <Link href="Login"> <motion.button
-                  className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-5 py-2 font-semibold text-white shadow-lg transition-all duration-300 text-sm group"
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 8px 25px rgba(0, 194, 168, 0.3)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
+              <Link href="/">
+                <motion.div
+                  className="flex items-center gap-2"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <span className="relative z-10">Login</span>
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.6 }}
+                  <Image
+                    src="/Images/Logo_aivora.png"
+                    alt="Logo"
+                    width={35}
+                    height={35}
+                    style={{ objectFit: "cover" }}
+                    className="w-auto h-full scale-90 sm:scale-100"
+                    priority
                   />
-                </motion.button>
+                </motion.div>
+              </Link>
+
+              <div className="flex justify-between gap-5 items-center">
+                <Link href="Login">
+                  {" "}
+                  <motion.button
+                    className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] px-5 py-2 font-semibold text-white shadow-lg transition-all duration-300 text-sm group"
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 8px 25px rgba(0, 194, 168, 0.3)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="relative z-10">Login</span>
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  </motion.button>
                 </Link>
-               
 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
@@ -491,6 +497,9 @@ export default function NavBar() {
                       className="w-full bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] text-white py-3 rounded-xl font-semibold shadow-lg text-sm"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        setMenuOpen(false);
+                      }}
                     >
                       Login
                     </motion.button>

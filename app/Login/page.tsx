@@ -9,6 +9,8 @@ import { useState, useContext, useEffect } from "react";
 import { Mail, Lock, ArrowRight, CheckCircle, Eye, EyeOff } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Link from "next/link";
+import Image from "next/image";
+
 
 interface LoginData {
   email: string;
@@ -28,7 +30,27 @@ export default function LoginPage() {
   const [isDark, setIsDark] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+ const [showAnimation, setShowAnimation] = useState(true);
+ const [isClient, setIsClient] = useState(false);
 
+ // للتأكد من أن الكود يعمل فقط على العميل
+ useEffect(() => {
+   setIsClient(true);
+ }, []);
+
+ // التبديل التلقائي كل 5 ثوان
+ useEffect(() => {
+   if (!isClient) return;
+
+   const interval = setInterval(() => {
+     setShowAnimation((prev) => !prev);
+   }, 3000);
+
+   return () => clearInterval(interval);
+ }, [isClient]);
+
+ // دالة للحصول على ألوان النص بناء على الوضع
+ 
   const methods = useForm<LoginData>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
@@ -70,9 +92,7 @@ export default function LoginPage() {
       : "w-full p-3 md:p-4 rounded-xl bg-white border border-gray-300 focus:border-[#00C2A8] focus:ring-2 focus:ring-[#00C2A8]/20 transition-all duration-300 text-gray-800 placeholder-gray-500 shadow-sm";
   };
 
-  const getTextClasses = () => {
-    return isDark ? "text-gray-300" : "text-gray-700";
-  };
+  
 
   const getLabelClasses = () => {
     return isDark ? "text-gray-300" : "text-gray-700";
@@ -126,7 +146,6 @@ export default function LoginPage() {
                 >
                   Welcome Back
                 </motion.h2>
-               
               </div>
 
               {/* Form Content */}
@@ -225,7 +244,7 @@ export default function LoginPage() {
                         type="checkbox"
                         className="rounded border-gray-300 text-[#00C2A8] focus:ring-[#00C2A8]"
                       />
-                      <span className={`ml-2 text-sm ${getTextClasses()}`}>
+                      <span className="ml-2 text-sm">
                         Remember me
                       </span>
                     </label>
@@ -274,7 +293,7 @@ export default function LoginPage() {
                   <div className="relative">
                     <div className="relative flex justify-center text-sm">
                       <span
-                        className={`px-2 ${getTextClasses()} bg-transparent`}
+                        className="px-2"
                       >
                         Or continue with
                       </span>
@@ -314,7 +333,7 @@ export default function LoginPage() {
                   </div>
 
                   {/* Sign Up Link */}
-                  <div className={`text-center text-sm ${getTextClasses()}`}>
+                  <div className="text-center text-sm ">
                     Don't have an account?{" "}
                     <Link
                       href="/Register"
@@ -339,37 +358,76 @@ export default function LoginPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-center items-center"
               >
-                {/* الشعار */}
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                   className="mb-6 flex justify-center flex-col items-center"
                 >
-                  <div className="h-80 w-80 ">
-                    <DotLottieReact
-                      src="/animations/register.lottie"
-                      loop
-                      autoplay
-                    />
+                  {/* الحاوية الرئيسية مع تأثير التبديل */}
+                  <div className="h-80 w-80 relative">
+                    {/* الأنيميشن */}
+                    <motion.div
+                      className="absolute inset-0"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: showAnimation ? 1 : 0,
+                        scale: showAnimation ? 1 : 0.8,
+                      }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                    >
+                      <DotLottieReact
+                        src="/animations/register.lottie"
+                        loop
+                        autoplay
+                      />
+                    </motion.div>
+
+                    {/* الشعار */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: showAnimation ? 0 : 1,
+                        scale: showAnimation ? 0.8 : 1,
+                      }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                    >
+                      <div className="text-center">
+                        <div className="w-48 h-48 mx-auto  flex items-center justify-center">
+                          <Image
+                            src="/Images/Logo_aivora.png"
+                            alt="Logo"
+                            width={250}
+                            height={200}
+                            style={{ objectFit: "cover" }}
+                            className="w-auto h-full scale-90 sm:scale-100"
+                            priority
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
-                  <motion.h3
-                    className={`text-2xl font-bold mt-4 ${getTextClasses()}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
+
+                  {/* النص مع تأثير التبديل */}
+                  <motion.div
+                    key={showAnimation ? "animation-text" : "logo-text"}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-4"
                   >
-                    Welcome Back!
-                  </motion.h3>
-                  <motion.p
-                    className={`mt-2 ${getTextClasses()}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1 }}
-                  >
-                    Access your AI-Vora dashboard and continue your medical
-                    journey.
-                  </motion.p>
+                    <motion.h3
+                      className="text-2xl font-bold"
+                    >
+                      {showAnimation ? "Welcome Back!" : "AI-Vora Platform"}
+                    </motion.h3>
+                    <motion.p className="mt-2">
+                      {showAnimation
+                        ? "Access your AI-Vora dashboard and continue your medical journey."
+                        : "Advanced AI solutions for modern healthcare challenges."}
+                    </motion.p>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             </div>

@@ -1,4 +1,5 @@
 import AboutUs from "./components/About";
+import AivoraVideoSection from "./components/AivoraVideoSection";
 import Contact from "./components/Contact";
 import FAQSection from "./components/FAQSection";
 import Hero from "./components/Hero";
@@ -14,6 +15,9 @@ export default function Home() {
       </div>
       <div>
         <AboutUs />
+      </div>
+      <div>
+        <AivoraVideoSection/>
       </div>
       <div>
         <Services />

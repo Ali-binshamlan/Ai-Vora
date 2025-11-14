@@ -4,6 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { DarkModeContext } from "../context/DarkModeeContext";
+import Image from "next/image";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useContext, useEffect } from "react";
@@ -54,6 +55,27 @@ const combinedSchema = step1Schema.concat(step2Schema).concat(step3Schema);
 export default function RegisterPage() {
   const { dark } = useContext(DarkModeContext);
   const [isDark, setIsDark] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
+  // للتأكد من أن الكود يعمل فقط على العميل
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // التبديل التلقائي كل 5 ثوان
+  useEffect(() => {
+    if (!isClient) return;
+
+    const interval = setInterval(() => {
+      setShowAnimation((prev) => !prev);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isClient]);
+
+  // دالة للحصول على ألوان النص بناء على الوضع
+ 
   const methods = useForm<FormData>({
     resolver: yupResolver(combinedSchema),
     defaultValues: {
@@ -644,37 +666,74 @@ export default function RegisterPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-center items-center"
               >
-                {/* الشعار */}
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                   className="mb-6 flex justify-center flex-col items-center"
                 >
-                  <div className="h-80 w-80 ">
-                    <DotLottieReact
-                      src="/animations/register.lottie"
-                      loop
-                      autoplay
-                    />
+                  {/* الحاوية الرئيسية مع تأثير التبديل */}
+                  <div className="h-80 w-80 relative">
+                    {/* الأنيميشن */}
+                    <motion.div
+                      className="absolute inset-0"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: showAnimation ? 1 : 0,
+                        scale: showAnimation ? 1 : 0.8,
+                      }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                    >
+                      <DotLottieReact
+                        src="/animations/register.lottie"
+                        loop
+                        autoplay
+                      />
+                    </motion.div>
+
+                    {/* الشعار */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: showAnimation ? 0 : 1,
+                        scale: showAnimation ? 0.8 : 1,
+                      }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                    >
+                      <div className="text-center">
+                        <div className="w-48 h-48 mx-auto  flex items-center justify-center">
+                          <Image
+                            src="/Images/Logo_aivora.png"
+                            alt="Logo"
+                            width={250}
+                            height={200}
+                            style={{ objectFit: "cover" }}
+                            className="w-auto h-full scale-90 sm:scale-100"
+                            priority
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
-                  <motion.h3
-                    className={`text-2xl font-bold mt-4 ${getTextClasses()}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
+
+                  {/* النص مع تأثير التبديل */}
+                  <motion.div
+                    key={showAnimation ? "animation-text" : "logo-text"}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-4"
                   >
-                    Welcome
-                  </motion.h3>
-                  <motion.p
-                    className={`mt-2 ${getTextClasses()}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1 }}
-                  >
-                    Start your medical journey with AI-Vora! Create your account
-                    now to access your dashboard.
-                  </motion.p>
+                    <motion.h3 className="text-2xl font-bold">
+                      {showAnimation ? "Welcome !" : "AI-Vora Platform"}
+                    </motion.h3>
+                    <motion.p className="mt-2">
+                      {showAnimation
+                        ? "Access your AI-Vora dashboard and continue your medical journey."
+                        : "Advanced AI solutions for modern healthcare challenges."}
+                    </motion.p>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             </div>
