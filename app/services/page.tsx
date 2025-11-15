@@ -1,15 +1,16 @@
+// app/services/page.tsx
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import Threads from "../../public/animations/Threads";
+import Threads from "../../public/animations/Threads"; // المسار المعدل
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { motion } from "framer-motion";
 import WorkProcess from "../components/WorkProcess";
 import Contact from "../components/Contact";
 
 // Custom hook for scroll animations
-const useScrollAnimation = () => {
+const useScrollAnimation = <T extends HTMLElement>() => {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<T | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -18,10 +19,7 @@ const useScrollAnimation = () => {
           setIsVisible(true);
         }
       },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
 
     if (ref.current) {
@@ -29,17 +27,14 @@ const useScrollAnimation = () => {
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
 
-  return [ref, isVisible];
+  return [ref, isVisible] as const;
 };
 
 const services = [
-  // ... your services array remains exactly the same
   {
     title: "AI Solutions",
     description:
@@ -161,11 +156,25 @@ const services = [
   },
 ];
 
-// Animated Service Item Component
-const AnimatedServiceItem = ({ service, index }) => {
-  const [titleRef, titleVisible] = useScrollAnimation();
-  const [descRef, descVisible] = useScrollAnimation();
-  const [contentRef, contentVisible] = useScrollAnimation();
+type Service = {
+  title: string;
+  description: string;
+  features: string[];
+  highlights: string[];
+  keyframes: string[];
+  animations: string[];
+  icon?: React.ReactNode;
+};
+
+interface Props {
+  service: Service;
+  index: number;
+}
+
+const AnimatedServiceItem = ({ service, index }: Props) => {
+  const [descRef, descVisible] = useScrollAnimation<HTMLDivElement>();
+  const [titleRef, titleVisible] = useScrollAnimation<HTMLDivElement>();
+  const [contentRef, contentVisible] = useScrollAnimation<HTMLDivElement>();
 
   return (
     <div className="mb-20 lg:mb-32">
