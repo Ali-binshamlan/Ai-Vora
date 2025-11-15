@@ -2,6 +2,9 @@
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Missions from "../components/Missions";
+import WhyChooseUs from "../components/WhyChooseUs";
+import StatsSection from "../components/StatsSection";
+import Contact from "../components/Contact";
 
 export default function About() {
 
@@ -9,7 +12,7 @@ export default function About() {
 
 
   return (
-    <div className="min-h-screen py-16 px-6 mt-20 flex flex-col items-center">
+    <div className="min-h-screen py-16 mt-20 flex flex-col items-center">
       <div className="w-3/4">
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-[#00C2A8] to-[#00E0B8] bg-clip-text text-transparent">
           INNOVATION, INTELLIGENCE
@@ -20,10 +23,19 @@ export default function About() {
           smarter, data-driven decisions.{" "}
         </p>
         <DotLottieReact src="/animations/Live_chatbot.lottie" loop autoplay />
-          </div>
-          <div>
-              <Missions/>
-          </div>
+      </div>
+      <div>
+        <Missions />
+      </div>
+      <div>
+        <WhyChooseUs />
+      </div>
+      <div>
+        <StatsSection/>
+      </div>
+      <div>
+        <Contact/>
+      </div>
     </div>
   );
 }

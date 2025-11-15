@@ -71,9 +71,9 @@ const socialIcons = {
   ];
 
   return (
-    <section className="relative w-full py-12 md:py-20 px-4 sm:px-6 lg:px-8 xl:px-20 overflow-hidden">
+    <section className="relative w-full py-16 md:py-10 px-4 sm:px-6 lg:px-8 xl:px-20 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute  overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
