@@ -94,7 +94,7 @@ const StyledCard = styled.div`
 
   .front-content {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border: 1px solid rgba(0, 194, 168, 0.1);
+    border: 1px solid rgba(0, 194, 168, 0.959);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08),
       0 0 0 1px rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;

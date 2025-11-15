@@ -57,7 +57,7 @@ export default function NavBar() {
     { name: "Home", href: "/", icon: Home },
     { name: "About", href: "about", icon: User },
     { name: "Services", href: "services", icon: Briefcase },
-    { name: "Solutions", href: "solutions", icon: Cog },
+    { name: "Solutions", href: "#solutions", icon: Cog },
     { name: "Projects", href: "projects", icon: Folder },
     { name: "Contact", href: "contact", icon: Phone },
   ];

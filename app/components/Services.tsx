@@ -481,28 +481,7 @@ export default function Services() {
                           : "#6B7280",
                     }}
                   >
-                    <motion.button
-                      className={`flex items-center justify-center gap-3 w-full py-3 px-6 rounded-xl font-semibold backdrop-blur-sm border transition-all duration-300 ${
-                        isDark
-                          ? "bg-white/5 border-white/10 hover:bg-white/10"
-                          : "bg-white/50 border-gray-200/50 hover:bg-white/80"
-                      }`}
-                      whileHover={{
-                        scale: 1.05,
-                        boxShadow: `0 10px 30px ${service.accent}30`,
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <span>Learn More</span>
-                      <motion.span
-                        animate={{
-                          x: hoveredCard === index ? 5 : 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight size={16} />
-                      </motion.span>
-                    </motion.button>
+                   
                   </motion.div>
                 </div>
               </div>
@@ -528,32 +507,7 @@ export default function Services() {
           ))}
         </motion.div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <motion.button
-            className={`px-12 py-4 rounded-2xl font-bold text-lg backdrop-blur-lg border transition-all duration-300 ${
-              isDark
-                ? "bg-gradient-to-r from-[#00C2A8] to-[#667eea] text-white border-transparent hover:shadow-2xl hover:shadow-[#00C2A8]/30"
-                : "bg-gradient-to-r from-[#00C2A8] to-[#667eea] text-white border-transparent hover:shadow-2xl hover:shadow-[#00C2A8]/50"
-            }`}
-            whileHover={{
-              scale: 1.05,
-              y: -5,
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="flex items-center gap-3">
-              Start Your AI Journey
-              <Rocket className="w-5 h-5" />
-            </span>
-          </motion.button>
-        </motion.div>
+       
       </div>
     </section>
   );

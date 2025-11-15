@@ -117,7 +117,7 @@ const socialIcons = {
             Let's Talk
           </motion.h2>
           <motion.div
-            className={`w-16 md:w-24 h-1 mx-auto rounded-full mb-4 ${
+            className={`w-16 md:w-80 h-1 mx-auto rounded-full mb-4 ${
               dark
                 ? "bg-gradient-to-r from-purple-400 to-blue-400"
                 : "bg-gradient-to-r from-purple-600 to-blue-600"

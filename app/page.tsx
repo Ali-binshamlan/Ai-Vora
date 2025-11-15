@@ -9,29 +9,44 @@ import Solutions from "./components/Solutions";
 
 export default function Home() {
   return (
-    <div className=" min-h-screen items-center justify-center font-sans ">
-      <div>
+    <div className="min-h-screen items-center justify-center font-sans">
+      {/* HERO */}
+      <div id="hero">
         <Hero />
       </div>
-      <div>
+
+      {/* ABOUT */}
+      <div id="about">
         <AboutUs />
       </div>
-      <div>
-        <AivoraVideoSection/>
+
+      {/* VIDEO */}
+      <div id="video">
+        <AivoraVideoSection />
       </div>
-      <div>
+
+      {/* SERVICES */}
+      <div id="services">
         <Services />
       </div>
-      <div>
+
+      {/* SOLUTIONS */}
+      <div id="solutions">
         <Solutions />
       </div>
-      <div>
+
+      {/* PROJECTS */}
+      <div id="projects">
         <ProjectCarousel />
       </div>
-      <div>
+
+      {/* FAQ */}
+      <div id="faq">
         <FAQSection />
       </div>
-      <div>
+
+      {/* CONTACT */}
+      <div id="contact">
         <Contact />
       </div>
     </div>

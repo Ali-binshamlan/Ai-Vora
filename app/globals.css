@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-
+html {
+  scroll-behavior: smooth;
+}
 
 body{
   background-color: #fff; /* خلفية افتراضية للوضع الفاتح */
@@ -24,7 +26,19 @@ body.darkMode {
   /* Firefox */
 }
 
+@keyframes slide-right {
+  0% {
+    transform: translateX(100%);
+  }
 
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-right {
+  animation: slide-right 1s ease-out forwards;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
