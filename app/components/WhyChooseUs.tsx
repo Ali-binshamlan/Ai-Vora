@@ -3,9 +3,16 @@ import React from "react";
 import styled from "styled-components";
 import { Star, Users, Zap, Clock } from "lucide-react";
 
+type IconType = "star" | "users" | "zap" | "clock";
+
+interface CardProps {
+  title: string;
+  description: string;
+  icon: IconType;
+}
 
 // ====================== CARD COMPONENT ======================
-const Card = ({ title, description, icon }) => {
+const Card: React.FC<CardProps> = ({ title, description, icon }) => {
   const getIcon = () => {
     switch (icon) {
       case "star":
@@ -19,7 +26,8 @@ const Card = ({ title, description, icon }) => {
       default:
         return <Star size={32} />;
     }
-  };
+    };
+    
   return (
     <StyledCard>
       <div className="card-container">
@@ -208,7 +216,14 @@ const StyledCard = styled.div`
 
 // ====================== MAIN WHY CHOOSE US ======================
 const WhyChooseUs = () => {
- const items = [
+    type IconType = "star" | "users" | "zap" | "clock";
+
+    interface Item {
+      title: string;
+      description: string;
+      icon: IconType; // مهم جداً
+    }
+ const items: Item[] = [
    {
      title: "High Quality",
      description:
